@@ -165,8 +165,8 @@ sudo cp conf/nginx.conf /etc/nginx/nginx.conf
 
 # copy nginx settings
 sudo mkdir -p /etc/nginx/lancache
-sudo cp conf/lancache/ /etc/nginx/lancache/
+sudo cp -R conf/lancache/ /etc/nginx/
 
 # copy vhosts
 sudo mkdir -p /etc/nginx/vhosts-enabled
-sudo cp conf/vhosts-enabled/ /etc/nginx/vhosts-enabled/
+sudo cp -R conf/vhosts-enabled/ /etc/nginx/
