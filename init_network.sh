@@ -32,7 +32,10 @@ iface eth0 inet static
     address 10.10.30.90
     netmask 255.255.0.0
     gateway 10.10.0.1
-
+    network 10.10.0.0
+    broadcast 10.10.255.255
+    dns-nameservers 10.10.0.1
+    dns-search lan-team.net
 # Ip used for STEAM caching
 auto eth0:1
 iface eth0:1 inet static
