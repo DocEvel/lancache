@@ -1,5 +1,14 @@
 #!/bin/bash
 
+echo "net.ipv6.conf.all.disable_ipv6=1" >/etc/sysctl.d/disable-ipv6.conf
+sysctl -p /etc/sysctl.d/disable-ipv6.conf
+
+cat > /etc/resolv.conf <<EOF
+domain lan-team.net
+search lan-team.net
+nameserver 10.10.0.1
+EOF
+
 cat > /etc/network/interfaces <<EOF
 
 # This file describes the network interfaces available on your system
