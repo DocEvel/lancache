@@ -9,6 +9,11 @@ search lan-team.net
 nameserver 10.10.0.1
 EOF
 
+cat > /etc/hostname <<EOF
+lancache
+EOF
+
+
 cat > /etc/network/interfaces <<EOF
 
 # This file describes the network interfaces available on your system
@@ -109,20 +114,20 @@ ff02::2 ip6-allrouters
 127.1.0.2       lancache-blizzard-backend
 
 #This is the primary IP (of the network card / eth) that your Lancache is using
-10.10.30.90 lancache-eth
+10.10.30.90     lancache
 
 #The Following are Virtual IP's used by Lancache
-10.10.30.91 lancache-steam
-10.10.30.92 lancache-riot
-10.10.30.93 lancache-blizzard
-10.10.30.94 lancache-hirez
-10.10.30.95 lancache-origin
-10.10.30.96 lancache-sony
-10.10.30.97 lancache-microsoft
-10.10.30.98 lancache-tera
-10.10.30.99 lancache-gog
-10.10.30.100 lancache-arenanetworks
-10.10.30.101 lancache-wargaming
+10.10.30.91     lancache-steam
+10.10.30.92     lancache-riot
+10.10.30.93     lancache-blizzard
+10.10.30.94     lancache-hirez
+10.10.30.95     lancache-origin
+10.10.30.96     lancache-sony
+10.10.30.97     lancache-microsoft
+10.10.30.98     lancache-tera
+10.10.30.99     lancache-gog
+10.10.30.100    lancache-arenanetworks
+10.10.30.101    lancache-wargaming
 EOF
 
 # Create the user lancache
