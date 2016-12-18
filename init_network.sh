@@ -94,3 +94,79 @@ iface eth0:11 inet static
     address 10.10.30.101
     netmask 255.255.0.0
 EOF
+
+# creating hosts file /etc/hosts
+cat > /etc/hosts <<EOF
+127.0.0.1       localhost
+127.0.1.1       lancache-VM
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+127.1.0.1       lancache-origin-backend
+127.1.0.2       lancache-blizzard-backend
+
+#This is the primary IP (of the network card / eth) that your Lancache is using
+10.10.30.90 lancache-eth
+
+#The Following are Virtual IP's used by Lancache
+10.10.30.91 lancache-steam
+10.10.30.92 lancache-riot
+10.10.30.93 lancache-blizzard
+10.10.30.94 lancache-hirez
+10.10.30.95 lancache-origin
+10.10.30.96 lancache-sony
+10.10.30.97 lancache-microsoft
+10.10.30.98 lancache-tera
+10.10.30.99 lancache-gog
+10.10.30.100 lancache-arenanetworks
+10.10.30.101 lancache-wargaming
+EOF
+
+# Create the user lancache
+sudo adduser --system --no-create-home lancache
+sudo addgroup --system lancache
+sudo usermod -aG lancache lancache
+
+# Just create the folders:
+sudo mkdir -p /srv/lancache/data/blizzard
+sudo mkdir -p /srv/lancache/data/microsoft
+sudo mkdir -p /srv/lancache/data/installs
+sudo mkdir -p /srv/lancache/data/other
+sudo mkdir -p /srv/lancache/data/tmp
+sudo mkdir -p /srv/lancache/data/hirez/
+sudo mkdir -p /srv/lancache/data/origin/
+sudo mkdir -p /srv/lancache/data/riot/
+sudo mkdir -p /srv/lancache/data/sony/
+sudo mkdir -p /srv/lancache/data/steam/
+sudo mkdir -p /srv/lancache/logs
+sudo mkdir -p /srv/lancache/data/wargaming
+sudo mkdir -p /srv/lancache/data/tera
+sudo mkdir -p /srv/lancache/data/arenanetworks
+
+# chown 
+sudo chown -R lancache:lancache /srv/lancache
+
+# Copy the Lancache file from init.d/ to /etc/init.d/
+sudo cp -R init.d/lancache /etc/init.d/lancache
+sudo chmod +x /etc/init.d/lancache
+
+# Put it in the standard Boot:
+sudo update-rc.d lancache defaults
+
+# Copy limits.conf to /etc/security/limits.conf
+sudo cp limits.conf /etc/security/limits.conf
+
+# copy nginx.conf /etc/nginx
+sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.org
+sudo cp conf/nginx.conf /etc/nginx/nginx.conf
+
+# copy nginx settings
+sudo mkdir -p /etc/nginx/lancache
+sudo cp conf/lancache/ /etc/nginx/lancache/
+
+# copy vhosts
+sudo mkdir -p /etc/nginx/vhosts-enabled
+sudo cp conf/vhosts-enabled/ /etc/nginx/vhosts-enabled/
